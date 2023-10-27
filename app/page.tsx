@@ -15,7 +15,7 @@ export default function Home() {
         </span>
       </div>
       <div className="flex mx-auto p-10 items-center justify-around flex-col min-h-96">
-        <h3>"You may also like" - simulated user-specific, dynamic list</h3>
+        <h3>You may also like - simulated user-specific, dynamic list</h3>
         <Suspense fallback={<ListSkeleton />}>
           <YouMayAlsoLikeList />
         </Suspense>
