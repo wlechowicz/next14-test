@@ -10,7 +10,7 @@ export default function User({ id, firstName }: UserData) {
         className="border-2 border-gray-400 rounded px-4 py-2"
         onClick={() => alert(`Hi, ${id}: ${firstName}`)}
       >
-        I'm {firstName}!
+        I&rsquo;m {firstName}!
       </button>
     </div>
   );
