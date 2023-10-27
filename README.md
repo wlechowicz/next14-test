@@ -2,7 +2,18 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
-First, run the development server:
+You need a TMDB read token to run this app locally.
+
+It's free, just sign up, then go to [account settings](https://www.themoviedb.org/settings/api)
+and copy your token (not the API key, the API Read Access Token below it).
+
+Create `.env.local` file and set TMDB API token
+
+```
+TMDB_API_TOKEN=your_token
+```
+
+Then, run the development server:
 
 ```bash
 npm run dev
