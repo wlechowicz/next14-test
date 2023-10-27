@@ -2,6 +2,8 @@ import { Suspense } from "react";
 import SomeProductStuff from "./SomeProductStuff";
 import SomeUserStuff from "./SomeUserStuff";
 
+export const revalidate = 0;
+
 const Filler = () => {
   return (
     <span>
