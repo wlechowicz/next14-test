@@ -1,7 +1,8 @@
-export default function getTmdbData(
+export default async function getTmdbData(
   endpoint: string,
   resolve: Function | null = null
 ) {
+  "use server";
   return fetch(`https://api.themoviedb.org/3/${endpoint}`, {
     headers: {
       Authorization: `Bearer ${process.env.TMDB_API_TOKEN}`,

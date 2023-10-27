@@ -1,4 +1,4 @@
-import getTmdbData from "@/getTmdbData";
+import getTmdbData from "@/server/getTmdbData";
 import { MovieTile } from "./MovieTile.client";
 
 export type Data = {
@@ -17,14 +17,13 @@ export default async function ListOfMovies({
   url: string;
 }) {
   async function fetchMovieData(): Promise<Data[]> {
-    "use server";
     return getTmdbData(url);
   }
 
   const movieList = await fetchMovieData();
 
   return (
-    <div className="flex flex-row gap-x-1">
+    <div className="flex flex-row gap-x-1 w-full">
       {movieList.map((movie) => (
         <MovieTile movie={movie} key={`movieTile-${name}-${movie.id}`} />
       ))}
