@@ -1,12 +1,12 @@
 "use client";
 
-import type { Data } from "./ListOfMovies";
+import type { Video } from "@/types/Video";
 import Image from "./ImageTmdb";
 
 export const MovieTile = ({
   movie: { title, poster_path },
 }: {
-  movie: Data;
+  movie: Video;
 }) => {
   return (
     <button

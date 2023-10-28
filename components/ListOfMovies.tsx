@@ -1,13 +1,7 @@
 import getTmdbData from "@/server/getTmdbData";
 import { MovieTile } from "./MovieTile.client";
 
-export type Data = {
-  id: number;
-  overview: string;
-  title: string;
-  poster_path: string;
-  backdrop_path: string;
-};
+import type { Video } from "@/types/Video";
 
 export default async function ListOfMovies({
   name,
@@ -16,7 +10,7 @@ export default async function ListOfMovies({
   name: string;
   url: string;
 }) {
-  async function fetchMovieData(): Promise<Data[]> {
+  async function fetchMovieData(): Promise<Video[]> {
     return getTmdbData(url);
   }
 

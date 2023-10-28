@@ -3,7 +3,7 @@ import ListOfMovies from "@/components/ListOfMovies";
 import YouMayAlsoLikeList from "@/components/YouMayAlsoLikeList";
 import ListSkeleton from "@/components/ListSkeleton";
 
-export const revalidate = 0;
+export const revalidate = 60;
 
 export default function Home() {
   return (
@@ -19,14 +19,19 @@ export default function Home() {
         </span>
       </div>
       <div className="flex mx-auto py-10 items-center justify-around flex-col">
-        <h3>You may also like - simulated user-specific, dynamic list</h3>
+        <h3>
+          You may also like - simulated user-specific, dynamic list, 3s delay
+        </h3>
         <Suspense fallback={<ListSkeleton />}>
           <YouMayAlsoLikeList />
         </Suspense>
       </div>
       <div className="flex mx-auto py-10 items-center justify-center flex-col">
         <h3>Popular Comedies (static)</h3>
-        <ListOfMovies name={"toprated"} url={"discover/movie?with_genres=35"} />
+        <ListOfMovies
+          name={"popularcomedies"}
+          url={"discover/movie?with_genres=35"}
+        />
       </div>
       <div className="flex mx-auto py-10 items-center justify-center flex-col">
         <h3>Top Rated (static)</h3>
