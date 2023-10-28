@@ -3,8 +3,6 @@ import ListOfMovies from "@/components/ListOfMovies";
 import YouMayAlsoLikeList from "@/components/YouMayAlsoLikeList";
 import ListSkeleton from "@/components/ListSkeleton";
 
-export const revalidate = 60;
-
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between px-24 py-12 text-slate-500">
