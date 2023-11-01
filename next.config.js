@@ -4,7 +4,7 @@ const nextConfig = {
   // or just `npm run build` with this commented out and check .next/server/app/index.html
   // output: "export",
   experimental: {
-    ppr: true,
+    ppr: false,
   },
 };
 

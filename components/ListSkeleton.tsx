@@ -1,14 +1,14 @@
 export default function ListSkeleton() {
   return (
-    <div role="status" className="animate-pulse flex flex-row gap-x-1 w-full">
+    <div role="status" className="animate-pulse flex flex-row gap-x-2 w-full">
       {["one", "two", "three", "four", "five"].map((i) => (
         <div
           key={`skelly-tile-${i}`}
-          className="flex justify-center flex-col p-2 bg-slate-500 rounded w-[320px] h-[480px]"
+          className="flex justify-center flex-col p-2 bg-slate-500 rounded grow shrink"
         >
-          <div className="">
+          <div className="flex flex-col justify-center aspect-[1/1.5]">
             <svg
-              className="max-w-full text-gray-400"
+              className="text-gray-400"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               fill="currentColor"

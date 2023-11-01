@@ -2,23 +2,27 @@
 
 import type { Video } from "@/types/Video";
 import Image from "./ImageTmdb";
+import Link from "next/link";
 
 export const MovieTile = ({
-  movie: { title, poster_path },
+  movie: { id, title, poster_path },
 }: {
   movie: Video;
 }) => {
   return (
-    <button
-      className="p-2 bg-slate-500 hover:bg-slate-400 focus:ring rounded w-[320px] h-[480px]"
-      onClick={() => alert(`You clicked a movie called "${title}"`)}
+    <Link
+      className="bg-inherit focus:ring rounded aspect-[1/1.5]"
+      href={`/movie/${id}`}
     >
       <Image
         url={poster_path}
         className="border-0 rounded object-fill"
         alt={title}
+        size="w500"
       />
-      <span className="sr-only">Movie card for: {title}</span>
-    </button>
+      <span className="sr-only">
+        Movie card for: {title} (id: {id})
+      </span>
+    </Link>
   );
 };

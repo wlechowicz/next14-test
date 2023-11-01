@@ -1,7 +1,7 @@
 type TMDBImage = {
   url: string;
   size?: string;
-  className: string;
+  className?: string;
   alt: string;
 };
 

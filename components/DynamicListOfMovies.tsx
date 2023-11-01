@@ -1,4 +1,4 @@
-import getTmdbData from "@/server/getTmdbData";
+import { getTmdbVideoList } from "@/server/getTmdbData";
 import { MovieTile } from "./MovieTile.client";
 import { cookies } from "next/headers";
 
@@ -8,7 +8,15 @@ type UserData = {
   userId?: string;
 };
 
-export default async function YouMayAlsoLikeList() {
+export default async function DynamicList({
+  name,
+  url,
+  limit = 5,
+}: {
+  name: string;
+  url: string;
+  limit?: number;
+}) {
   async function fetchMovieData(): Promise<[Video[], UserData]> {
     // using cookies to force a PPR
     // with just the artificial delay, it waits for the component
@@ -18,9 +26,7 @@ export default async function YouMayAlsoLikeList() {
     const userId = user && user.value ? JSON.parse(user.value) : {};
     return Promise.all([
       new Promise<Video[]>((resolve) => {
-        // the delay simulates some user-specific operations, like fetching recommendations,
-        // which suspend the component
-        setTimeout(() => getTmdbData("movie/popular", resolve), 3000);
+        setTimeout(() => getTmdbVideoList(url, limit, resolve), 2000);
       }),
       userId,
     ]);
@@ -31,16 +37,11 @@ export default async function YouMayAlsoLikeList() {
   return (
     <>
       <span className="text-xs">
-        {userId
-          ? `userId from cookie: ${userId}`
-          : 'set a cookie in your browser - name: "user-cookie-stuff" value: {"userId":"some-string"}'}
+        {userId && `userId from cookie: ${userId}`}
       </span>
-      <div className="flex flex-row gap-x-1 w-full">
+      <div className="flex flex-row gap-x-2 w-full">
         {movieList.map((movie) => (
-          <MovieTile
-            movie={movie}
-            key={`movieTile-youmayalsolike-${movie.id}`}
-          />
+          <MovieTile movie={movie} key={`movieTile-${name}-${movie.id}`} />
         ))}
       </div>
     </>
