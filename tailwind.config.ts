@@ -16,6 +16,9 @@ const config: Config = {
       aspectRatio: {
         "1/1.5": "1 / 1.5",
       },
+      fontFamily: {
+        sans: ["var(--font-geist-sans)"],
+      },
     },
   },
   plugins: [],

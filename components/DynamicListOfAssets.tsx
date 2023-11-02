@@ -1,5 +1,5 @@
 import { getTmdbVideoList } from "@/server/getTmdbData";
-import { MovieTile } from "./MovieTile.client";
+import { AssetTile } from "./AssetTile.client";
 import { cookies } from "next/headers";
 
 import type { Video } from "@/types/Video";
@@ -41,7 +41,11 @@ export default async function DynamicList({
       </span>
       <div className="flex flex-row gap-x-2 w-full">
         {movieList.map((movie) => (
-          <MovieTile movie={movie} key={`movieTile-${name}-${movie.id}`} />
+          <AssetTile
+            asset={movie}
+            type="movie"
+            key={`movieTile-${name}-${movie.id}`}
+          />
         ))}
       </div>
     </>

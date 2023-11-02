@@ -1,6 +1,6 @@
 import { Suspense } from "react";
-import ListOfMovies from "@/components/ListOfMovies";
-import DynamicList from "@/components/DynamicListOfMovies";
+import ListOfAssets from "@/components/ListOfAssets";
+import DynamicList from "@/components/DynamicListOfAssets";
 import ListSkeleton from "@/components/ListSkeleton";
 import HeroMovie from "@/components/HeroMovie";
 import ListTitle from "@/components/ListTitle";
@@ -11,21 +11,24 @@ export default function Home() {
       <HeroMovie />
       <div className="px-4">
         <ListTitle title="Upcoming">
-          <ListOfMovies name="upcoming" url="movie/upcoming" />
+          <ListOfAssets name="upcoming" url="movie/upcoming" />
         </ListTitle>
         <ListTitle title="Top Picks For You">
           <Suspense fallback={<ListSkeleton />}>
             <DynamicList name="toppicks" url="movie/popular" />
           </Suspense>
         </ListTitle>
+        <ListTitle title="Top TV Shows">
+          <ListOfAssets name="popularshows" url="tv/top_rated" type="show" />
+        </ListTitle>
         <ListTitle title="Popular Comedies">
-          <ListOfMovies
+          <ListOfAssets
             name="popularcomedies"
             url="discover/movie?with_genres=35"
           />
         </ListTitle>
-        <ListTitle title="Top Rated">
-          <ListOfMovies name="toprated" url="movie/top_rated" />
+        <ListTitle title="Top Rated Movies">
+          <ListOfAssets name="toprated" url="movie/top_rated" />
         </ListTitle>
       </div>
     </main>

@@ -1,18 +1,44 @@
+"use server";
+
 import { Video } from "@/types/Video";
+import { Series } from "@/types/Series";
 
-type VideoKey = keyof Video;
+type ListResult<T> = {
+  results: T[];
+};
 
-function pick(
-  src: Video,
-  keys: VideoKey[]
-): Pick<Video, (typeof keys)[number]> {
-  return keys.reduce<Video>((result, key) => {
-    if (src[key] === undefined) {
-      return result;
-    }
+type PickAllowedType = Video | Series;
 
-    return { ...result, [key]: src[key] };
-  }, {} as Video);
+type KeysOfType<T> = {
+  [K in keyof T]: K;
+}[keyof T];
+
+function pick<T extends PickAllowedType, K extends KeysOfType<T>>(
+  src: T,
+  keys: K[]
+): Pick<T, K> {
+  return keys.reduce((picked: any, key) => {
+    picked[key] = src[key];
+    return picked;
+  }, {});
+}
+
+async function getData<T>(endpoint: string, options = {}) {
+  return fetch(`https://api.themoviedb.org/3/${endpoint}`, {
+    headers: {
+      Authorization: `Bearer ${process.env.TMDB_API_TOKEN}`,
+      accept: "application/json",
+    },
+    ...options,
+  })
+    .then((res) => res.json())
+    .then((json) => {
+      if (json?.success === false) {
+        return null;
+      }
+
+      return json as T;
+    });
 }
 
 export async function getTmdbVideoList(
@@ -20,78 +46,97 @@ export async function getTmdbVideoList(
   limit: number = 5,
   resolve: Function | null = null
 ) {
-  "use server";
-  return fetch(`https://api.themoviedb.org/3/${endpoint}`, {
-    headers: {
-      Authorization: `Bearer ${process.env.TMDB_API_TOKEN}`,
-      accept: "application/json",
-    },
-  })
-    .then((res) => res.json())
-    .then((json) => {
-      if (json?.success === false) {
-        return resolve ? resolve(null) : null;
-      }
+  const data = await getData<ListResult<Video>>(endpoint);
 
-      const capLimit = Math.min(limit, 50);
+  if (!(data && data.results)) {
+    return resolve ? resolve(null) : null;
+  }
 
-      const result = json.results
-        .slice(0, capLimit)
-        .map((video: Video) => pick(video, ["id", "title", "poster_path"]));
-      return resolve ? resolve(result) : result;
-    });
+  const capLimit = Math.min(limit, 50);
+
+  const result = data.results
+    .slice(0, capLimit)
+    .map((video: Video) => pick(video, ["id", "title", "poster_path"]));
+  return resolve ? resolve(result) : result;
 }
 
 export async function getTmdbVideoDetails(movieId: string) {
-  "use server";
-  return fetch(`https://api.themoviedb.org/3/movie/${movieId}`, {
-    headers: {
-      Authorization: `Bearer ${process.env.TMDB_API_TOKEN}`,
-      accept: "application/json",
-    },
-  })
-    .then((res) => res.json())
-    .then((json) => {
-      if (json?.success === false) {
-        return null;
-      }
+  const data = await getData<Video>(`movie/${movieId}`);
 
-      return pick(json, [
-        "id",
-        "title",
-        "backdrop_path",
-        "genres",
-        "overview",
-        "release_date",
-        "tagline",
-      ]);
-    });
+  if (!data) {
+    return null;
+  }
+
+  return pick(data, [
+    "id",
+    "title",
+    "backdrop_path",
+    "genres",
+    "overview",
+    "release_date",
+    "tagline",
+  ]);
 }
 
 export async function getTmdbUpcomingHero() {
-  "use server";
-  return fetch(
-    `https://api.themoviedb.org/3/movie/now_playing?page=1&language=en-US`,
+  const data = await getData<ListResult<Video>>(
+    `movie/now_playing?page=1&language=en-US`,
     {
-      headers: {
-        Authorization: `Bearer ${process.env.TMDB_API_TOKEN}`,
-        accept: "application/json",
-      },
       next: {
         revalidate: 43200, // 12 hours
       },
     }
-  )
-    .then((res) => res.json())
-    .then((json) => {
-      if (json?.success === false || !json.results?.length) {
-        return null;
-      }
+  );
 
-      const movies = json.results;
+  if (!(data && data.results?.length)) {
+    return null;
+  }
 
-      const randomIdx = Math.floor(Math.random() * movies.length);
+  const movies = data.results;
 
-      return pick(json.results[randomIdx], ["id", "title", "backdrop_path"]);
-    });
+  const randomIdx = Math.floor(Math.random() * movies.length);
+
+  return pick(movies[randomIdx], ["id", "title", "backdrop_path"]);
+}
+
+export async function getTmdbSeriesDetails(seriesId: string) {
+  const data = await getData<Series>(`tv/${seriesId}`);
+
+  if (!data) {
+    return null;
+  }
+
+  return pick(data, [
+    "id",
+    "name",
+    "backdrop_path",
+    "genres",
+    "overview",
+    "first_air_date",
+    "tagline",
+  ]);
+}
+
+export async function getTmdbEpisodeDetails(
+  seriesId: string,
+  season: number,
+  episode: number
+) {
+  // TODO: Episode type
+  const data = await getData<any>(
+    `tv/${seriesId}/season/${season}/episode/${episode}`
+  );
+
+  if (!data) {
+    return null;
+  }
+
+  return pick(data, [
+    "id",
+    "name",
+    "overview",
+    "still_path",
+    "season_number",
+    "episode_number",
+  ]);
 }

@@ -1,14 +1,16 @@
 import { getTmdbVideoList } from "@/server/getTmdbData";
-import { MovieTile } from "./MovieTile.client";
+import { AssetTile } from "./AssetTile.client";
 
 import type { Video } from "@/types/Video";
 
-export default async function ListOfMovies({
+export default async function ListOfAssets({
   name,
   url,
+  type = "movie",
 }: {
   name: string;
   url: string;
+  type?: string;
 }) {
   async function fetchMovieData(): Promise<Video[]> {
     return getTmdbVideoList(url);
@@ -19,7 +21,11 @@ export default async function ListOfMovies({
   return (
     <div className="flex flex-row gap-x-2 w-full">
       {movieList.map((movie) => (
-        <MovieTile movie={movie} key={`movieTile-${name}-${movie.id}`} />
+        <AssetTile
+          asset={movie}
+          type={type}
+          key={`movieTile-${name}-${movie.id}`}
+        />
       ))}
     </div>
   );
