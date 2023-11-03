@@ -1,5 +1,3 @@
-"use server";
-
 import { Video } from "@/types/Video";
 import { Series } from "@/types/Series";
 
