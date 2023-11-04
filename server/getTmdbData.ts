@@ -44,7 +44,7 @@ export async function getTmdbVideoList(
   limit: number = 8,
   resolve: Function | null = null
 ) {
-  const data = await getData<ListResult<Video>>(endpoint);
+  const data = await getData<ListResult<Video | Series>>(endpoint);
 
   if (!(data && data.results)) {
     return resolve ? resolve(null) : null;
@@ -52,9 +52,17 @@ export async function getTmdbVideoList(
 
   const capLimit = Math.min(limit, 50);
 
-  const result = data.results
-    .slice(0, capLimit)
-    .map((video: Video) => pick(video, ["id", "title", "poster_path"]));
+  const result = data.results.slice(0, capLimit).map((video) => {
+    // TODO: I think it would be better to separate getVideoList and getSeriesList
+    // and have the List component call the right function
+    if ("title" in video) {
+      // video is of type Video
+      return pick(video, ["id", "title", "poster_path"]);
+    } else {
+      // video is of type Series
+      return pick(video, ["id", "name", "poster_path"]);
+    }
+  });
   return resolve ? resolve(result) : result;
 }
 
