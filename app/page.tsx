@@ -14,7 +14,7 @@ export default function Home() {
           <ListOfAssets name="upcoming" url="movie/upcoming" />
         </ListTitle>
         <ListTitle title="Top Picks For You">
-          <Suspense fallback={<ListSkeleton />}>
+          <Suspense fallback={<ListSkeleton tiles={8} />}>
             <DynamicList name="toppicks" url="movie/popular" />
           </Suspense>
         </ListTitle>

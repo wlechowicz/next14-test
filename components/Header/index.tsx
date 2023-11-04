@@ -15,8 +15,8 @@ export default async function Header() {
           <Link className="hover:underline" href="/movies">
             Movies
           </Link>
-          <Link className="hover:underline" href="/series">
-            Series
+          <Link className="hover:underline" href="/shows">
+            Shows
           </Link>
         </div>
       </div>

@@ -12,7 +12,7 @@ export default function Recs({
 }) {
   return (
     <ListTitle title="More Like This">
-      <Suspense fallback={<ListSkeleton />}>
+      <Suspense fallback={<ListSkeleton tiles={6} />}>
         <DynamicList
           url={`/${assetType}/${assetId}/similar`}
           name={`similar${assetType}s`}
