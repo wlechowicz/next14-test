@@ -1,4 +1,5 @@
 import Link from "next/link";
+import UserIcon from "./UserIcon";
 
 export default async function Header() {
   return (
@@ -8,17 +9,18 @@ export default async function Header() {
           <Link href="/">Fooflix</Link>
         </div>
         <div className="hidden sm:flex px-8 gap-6 font-semibold">
-          <Link href="/">Home</Link>
-          <Link href="/movies">Movies</Link>
+          <Link className="hover:underline" href="/">
+            Home
+          </Link>
+          <Link className="hover:underline" href="/movies">
+            Movies
+          </Link>
+          <Link className="hover:underline" href="/series">
+            Series
+          </Link>
         </div>
       </div>
-      <div className="h-full p-4">
-        <img
-          src="/user-profile.svg"
-          alt="User profile icon"
-          className="h-full"
-        />
-      </div>
+      <UserIcon />
     </header>
   );
 }

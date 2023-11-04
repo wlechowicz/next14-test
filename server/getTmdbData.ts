@@ -41,7 +41,7 @@ async function getData<T>(endpoint: string, options = {}) {
 
 export async function getTmdbVideoList(
   endpoint: string,
-  limit: number = 5,
+  limit: number = 8,
   resolve: Function | null = null
 ) {
   const data = await getData<ListResult<Video>>(endpoint);
@@ -94,7 +94,12 @@ export async function getTmdbUpcomingHero() {
 
   const randomIdx = Math.floor(Math.random() * movies.length);
 
-  return pick(movies[randomIdx], ["id", "title", "backdrop_path"]);
+  return pick(movies[randomIdx], [
+    "id",
+    "title",
+    "backdrop_path",
+    "release_date",
+  ]);
 }
 
 export async function getTmdbSeriesDetails(seriesId: string) {

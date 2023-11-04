@@ -1,7 +1,7 @@
 import { Suspense } from "react";
-import DynamicList from "./DynamicListOfAssets";
-import ListSkeleton from "./ListSkeleton";
-import ListTitle from "./ListTitle";
+import DynamicList from "./ListOfAssets/DynamicList";
+import ListSkeleton from "./ListOfAssets/ListSkeleton";
+import ListTitle from "./ListOfAssets/ListTitle";
 
 export default function Recs({
   assetType,

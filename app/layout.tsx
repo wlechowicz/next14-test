@@ -18,7 +18,7 @@ export default function RootLayout({
       <body className="text-slate-200">
         <Header />
         {children}
-        <footer className="text-center">
+        <footer className="text-center pt-20 pb-2 text-sm font-thin">
           This demo site uses the TMDB API but is not endorsed or certified by
           TMDB.
         </footer>

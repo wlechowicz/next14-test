@@ -1,13 +1,13 @@
 import { Suspense } from "react";
 import ListOfAssets from "@/components/ListOfAssets";
-import DynamicList from "@/components/DynamicListOfAssets";
-import ListSkeleton from "@/components/ListSkeleton";
+import DynamicList from "@/components/ListOfAssets/DynamicList";
+import ListSkeleton from "@/components/ListOfAssets/ListSkeleton";
 import HeroMovie from "@/components/HeroMovie";
-import ListTitle from "@/components/ListTitle";
+import ListTitle from "@/components/ListOfAssets/ListTitle";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between px-0 py-0">
+    <main className="flex min-h-screen flex-col items-center justify-start px-0 py-0">
       <HeroMovie />
       <div className="px-4">
         <ListTitle title="Upcoming">

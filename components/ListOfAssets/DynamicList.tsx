@@ -11,7 +11,7 @@ type UserData = {
 export default async function DynamicList({
   name,
   url,
-  limit = 5,
+  limit = 8,
 }: {
   name: string;
   url: string;
