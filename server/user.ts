@@ -1,17 +1,18 @@
 import { cookies } from "next/headers";
-import jwt from "jsonwebtoken";
+import jwt, { JwtPayload } from "jsonwebtoken";
 
 const cookieName = "fooflix-sso";
 const secret = process.env.JWT_SECRET;
-if (!secret) {
-  throw new Error("Missing JWT_SECRET in env");
-}
 
 // cookie payload
 // const token = jwt.sign({ notifications: 3, username: "Fred" }, secret);
 // console.log(JSON.stringify({ token }));
 
 export async function getUser() {
+  if (!secret) {
+    throw new Error("Missing JWT_SECRET in env");
+  }
+
   const store = cookies();
   if (!store.has(cookieName)) {
     return null;
@@ -30,7 +31,7 @@ export async function getUser() {
   }
 
   try {
-    const decoded = jwt.verify(user.token, secret);
+    const decoded = jwt.verify(user.token, secret) as JwtPayload;
     return decoded;
   } catch (e) {
     console.error(e);
