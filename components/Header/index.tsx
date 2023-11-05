@@ -1,5 +1,7 @@
 import Link from "next/link";
+import { Suspense } from "react";
 import UserIcon from "./UserIcon";
+import UserIconSkelly from "./UserIconSkelly";
 
 export default async function Header() {
   return (
@@ -20,7 +22,9 @@ export default async function Header() {
           </Link>
         </div>
       </div>
-      <UserIcon />
+      <Suspense fallback={<UserIconSkelly />}>
+        <UserIcon />
+      </Suspense>
     </header>
   );
 }

@@ -2,16 +2,13 @@
 
 import { useFormState } from "react-dom";
 import SubmitButton from "./SubmitButton";
+import { setUser } from "@/server/actions";
 
 const initialState = {
   message: "",
 };
 
-export default function SignInForm({
-  setUser,
-}: {
-  setUser: (state: any, data: FormData) => Promise<typeof initialState>;
-}) {
+export default function SignInForm() {
   const [state, formAction] = useFormState(setUser, initialState);
 
   return (

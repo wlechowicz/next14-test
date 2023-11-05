@@ -1,8 +1,6 @@
-import { getUser } from "@/server/user";
+import type { UserData } from "@/types/UserData";
 
-export default async function NotificationIcon() {
-  const user = await getUser();
-
+export default function NotificationIcon({ user }: { user: UserData | null }) {
   if (!(user && user.notifications)) return null;
 
   return (

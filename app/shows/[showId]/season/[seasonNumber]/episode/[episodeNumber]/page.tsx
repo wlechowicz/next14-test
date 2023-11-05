@@ -2,6 +2,16 @@
 export default function EpisodePage() {
   return <div>episode page</div>;
 }
+
+export async function generateStaticParams() {
+  return [
+    {
+      showId: "1396",
+      seasonNumber: "1",
+      episodeNumber: "1",
+    },
+  ];
+}
 // tv/{series_id}/season/{season_number}/episode/{episode_number}
 // season 1 episode 1
 // {
