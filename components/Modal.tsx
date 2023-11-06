@@ -31,11 +31,10 @@ export default function Modal({ children }: { children: React.ReactNode }) {
 
   // workwround because modal doesn't close after navigating to a non-intercepted page
   // https://github.com/vercel/next.js/discussions/50284
-  const pathname = usePathname();
-  console.log("### pathname", pathname);
-  if (!pathname.startsWith("/movie/")) {
-    return null;
-  }
+  // const pathname = usePathname();
+  // if (!pathname.startsWith("/movie/")) {
+  //   return null;
+  // }
 
   return (
     <div className="fixed top-[var(--header-height)] left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-start">
