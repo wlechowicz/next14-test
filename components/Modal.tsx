@@ -39,7 +39,7 @@ export default function Modal({ children }: { children: React.ReactNode }) {
   return (
     <div className="fixed top-[var(--header-height)] left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-start">
       <div
-        className="flex flex-col rounded p-4 bg-slate-900 bg-opacity-100 overflow-y-scroll"
+        className="flex flex-col modal-card rounded p-4 bg-slate-900 bg-opacity-100 overflow-y-auto"
         ref={card}
       >
         {children}
