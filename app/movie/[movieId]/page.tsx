@@ -13,7 +13,9 @@ export default async function MovieDetails({ params }: Props) {
 }
 
 export async function generateStaticParams() {
-  return ["968051", "1139087", "507089"].map((movieId) => ({ movieId }));
+  return ["968051", "1139087", "507089", "762430"].map((movieId) => ({
+    movieId,
+  }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

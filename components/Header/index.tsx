@@ -5,7 +5,7 @@ import UserIconSkelly from "./UserIconSkelly";
 
 export default async function Header() {
   return (
-    <header className="flex flex-row items-center justify-between w-full bg-black text-slate-50 h-[64px] px-12 sticky top-0 z-50">
+    <header className="flex flex-row items-center justify-between w-full bg-black text-slate-50 h-[var(--header-height)] px-12 sticky top-0 z-50">
       <div className="flex flex-row justify-between items-center">
         <div className="text-4xl font-bold">
           <Link href="/">Fooflix</Link>

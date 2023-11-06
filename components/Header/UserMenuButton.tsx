@@ -1,25 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { signOut } from "@/server/actions";
-
-const useClickAway = (
-  ref: React.RefObject<HTMLElement>,
-  onClickAway: (event: MouseEvent) => void
-) => {
-  useEffect(() => {
-    const handleClickAway = (event: MouseEvent) => {
-      if (ref.current && !ref.current.contains(event.target as Node)) {
-        onClickAway(event);
-      }
-    };
-    document.addEventListener("click", handleClickAway);
-    return () => {
-      document.removeEventListener("click", handleClickAway);
-    };
-  }, [ref, onClickAway]);
-};
+import { useClickAway } from "@/hooks";
 
 const MenuItem = ({
   label,

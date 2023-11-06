@@ -1,4 +1,4 @@
-export default async function UserIconSkelly() {
+export default function UserIconSkelly() {
   return (
     <div className="h-full flex items-center justify-center">
       <img
