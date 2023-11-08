@@ -27,10 +27,12 @@ export default function Modal({ children }: { children: React.ReactNode }) {
     return () => document.removeEventListener("keydown", onKeyDown);
   }, [onKeyDown]);
 
+  // FIXME: this makes the modal call router.back() when anything in the header is clicked
   useClickAway(card, () => onDismiss());
 
-  // workwround because modal doesn't close after navigating to a non-intercepted page
+  // workaround because modal doesn't close after navigating to a non-intercepted page
   // https://github.com/vercel/next.js/discussions/50284
+  // https://github.com/vercel/next.js/issues/48719
   // const pathname = usePathname();
   // if (!pathname.startsWith("/movie/")) {
   //   return null;
@@ -43,6 +45,8 @@ export default function Modal({ children }: { children: React.ReactNode }) {
         ref={card}
       >
         {children}
+        {/* broken, see https://github.com/vercel/next.js/issues/48719 */}
+        Clicking this should take you to /shows/1 and close the modal:{" "}
         <Link href="/shows/1">Shows/1</Link>
       </div>
     </div>
