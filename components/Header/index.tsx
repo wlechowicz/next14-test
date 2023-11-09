@@ -2,13 +2,15 @@ import Link from "next/link";
 import { Suspense } from "react";
 import UserIcon from "./UserIcon";
 import UserIconSkelly from "./UserIconSkelly";
+import { type Brand } from "@/server/brands";
 
-export default async function Header() {
+export default async function Header({ brand }: { brand: Brand }) {
   return (
-    <header className="flex flex-row items-center justify-between w-full bg-black text-slate-50 h-[var(--header-height)] px-12 sticky top-0 z-50">
+    <header className="flex flex-row items-center justify-between w-full bg-black text-slate-50 h-[--header-height] px-12 sticky top-0 z-50">
       <div className="flex flex-row justify-between items-center">
-        <div className="text-4xl font-bold">
-          <Link href="/">Fooflix</Link>
+        {/* FIXME: color from theme doesn't work like this because tailwind doesn't collect this class */}
+        <div className={`text-4xl font-bold ${brand.theme.header.logoColor}`}>
+          <Link href="/">{brand.name}</Link>
         </div>
         <div className="hidden sm:flex px-8 gap-6 font-semibold">
           <Link className="hover:underline" href="/">

@@ -1,5 +1,5 @@
 import { getTmdbVideoDetails } from "@/server/getTmdbData";
-import { Metadata } from "next";
+import { type Metadata } from "next";
 import MovieAssetDetails from "@/components/MovieDetails";
 
 type Props = {
