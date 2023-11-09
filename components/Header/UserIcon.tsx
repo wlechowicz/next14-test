@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "@/components/Link";
 import NotificationIcon from "./NotificationIcon";
 import { getUser } from "@/server/user";
 import UserMenuToggle from "./UserMenuButton";

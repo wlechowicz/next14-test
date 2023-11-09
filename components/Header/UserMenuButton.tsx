@@ -1,7 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { useRef, useState } from "react";
+import Link from "@/components/Link";
 import { signOut } from "@/server/actions";
 import { useClickAway } from "@/hooks";
 

@@ -1,26 +1,21 @@
 import Header from "@/components/Header";
-import { getBrandData } from "@/server/brands";
+import { getBrandData, getKnownBrands } from "@/server/brands";
+import { notFound } from "next/navigation";
 
 import { type Metadata } from "next";
 
-type Props = {
-  params: { brand: string };
-};
-
-export default function RootLayout({
-  children,
-  modal,
-  params,
-}: {
+type LayoutProps = {
   children: React.ReactNode;
   modal: React.ReactNode;
   params: { brand: string };
-}) {
+};
+
+export default function RootLayout({ children, modal, params }: LayoutProps) {
   const { brand } = params;
   const brandData = getBrandData(brand);
 
   if (!brandData) {
-    throw new Error("Invalid brand");
+    notFound();
   }
 
   return (
@@ -36,12 +31,18 @@ export default function RootLayout({
   );
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: LayoutProps): Promise<Metadata> {
   const { brand } = params;
   const brandData = getBrandData(brand);
 
   return {
-    title: brandData?.name || "Fooflix",
-    description: brandData?.description || "Get flixed, foo!",
+    title: brandData.name,
+    description: brandData.description,
   };
+}
+
+export function generateStaticParams() {
+  return getKnownBrands().map((brand) => ({ brand }));
 }

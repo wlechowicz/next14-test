@@ -1,7 +1,7 @@
 "use client";
 
 import { useClickAway } from "@/hooks";
-import Link from "next/link";
+import Link from "@/components/Link";
 import { usePathname, useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef } from "react";
 
@@ -11,6 +11,8 @@ export default function Modal({ children }: { children: React.ReactNode }) {
   const router = useRouter();
 
   const onDismiss = useCallback(() => {
+    // TODO: this should be router.push("/") but that doesn't work
+    // also router needs to be made brand-aware like the custom Link
     router.back();
   }, [router]);
 

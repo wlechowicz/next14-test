@@ -33,6 +33,10 @@ const brands: BrandsConfig = {
   },
 };
 
+export function getKnownBrands() {
+  return Object.keys(brands);
+}
+
 export function getBrandData(brand: string) {
   return brands[brand];
 }

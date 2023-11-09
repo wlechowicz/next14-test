@@ -2,8 +2,8 @@
 
 import type { Video } from "@/types/Video";
 import type { Series } from "@/types/Series";
-import Image from "../ImageTmdb";
-import Link from "next/link";
+import Image from "@/components/ImageTmdb";
+import Link from "@/components/Link";
 
 export const AssetTile = ({
   asset,

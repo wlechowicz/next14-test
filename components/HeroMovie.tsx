@@ -1,6 +1,6 @@
 import { getTmdbUpcomingHero } from "@/server/getTmdbData";
 import Image from "./ImageTmdb";
-import Link from "next/link";
+import Link from "@/components/Link";
 
 export default async function HeroMovie() {
   const heroMovie = await getTmdbUpcomingHero();
