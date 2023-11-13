@@ -5,14 +5,16 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:local": "cross-env ANALYZE=true next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
+    "@next/bundle-analyzer": "^14.0.2",
     "@types/jsonwebtoken": "^9.0.4",
     "geist": "^1.0.0",
     "jsonwebtoken": "^9.0.2",
-    "next": "14.0.2-canary.26",
+    "next": "14.0.3-canary.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "zod": "^3.22.4"
@@ -22,6 +24,7 @@
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10",
+    "cross-env": "^7.0.3",
     "eslint": "^8",
     "eslint-config-next": "14.0.0",
     "postcss": "^8.4.31",
