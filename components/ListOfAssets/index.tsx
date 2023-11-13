@@ -19,7 +19,7 @@ export default async function ListOfAssets({
   const movieList = await fetchMovieData();
 
   return (
-    <div className="flex flex-row gap-x-2 w-full">
+    <div className="grid grid-cols-8 gap-x-2 w-full">
       {movieList.map((movie) => (
         <AssetTile
           asset={movie}

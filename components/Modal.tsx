@@ -35,6 +35,8 @@ export default function Modal({ children }: { children: React.ReactNode }) {
   // workaround because modal doesn't close after navigating to a non-intercepted page
   // https://github.com/vercel/next.js/discussions/50284
   // https://github.com/vercel/next.js/issues/48719
+  // seems this got fixed with https://github.com/vercel/next.js/pull/58368
+  // until PPR is off, with PPR on nothing seems to work the way it should
   // const pathname = usePathname();
   // if (!pathname.startsWith("/movie/")) {
   //   return null;
@@ -49,7 +51,9 @@ export default function Modal({ children }: { children: React.ReactNode }) {
         {children}
         {/* broken, see https://github.com/vercel/next.js/issues/48719 */}
         Clicking this should take you to /shows/1 and close the modal:{" "}
-        <Link href="/shows/1">Shows/1</Link>
+        <Link href="/shows/1" prefetch={false}>
+          Shows/1
+        </Link>
       </div>
     </div>
   );

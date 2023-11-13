@@ -32,7 +32,7 @@ export default async function DynamicList({
       <span className="text-xs">
         {user && `username from cookie: ${user.username}`}
       </span>
-      <div className="flex flex-row gap-x-2 w-full">
+      <div className="grid grid-cols-8 gap-x-2 w-full">
         {movieList.map((movie) => (
           <AssetTile
             asset={movie}

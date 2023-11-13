@@ -1,6 +1,9 @@
 export default function ListSkeleton({ tiles = 5 }: { tiles?: number }) {
   return (
-    <div role="status" className="animate-pulse flex flex-row gap-x-2 w-full">
+    <div
+      role="status"
+      className="animate-pulse grid grid-cols-8 gap-x-2 w-full"
+    >
       {Array.from({ length: tiles }, (_, i) => i).map((i) => (
         <div
           key={`skelly-tile-${i}`}
