@@ -5,6 +5,7 @@ import Link from "@/components/Link";
 import { usePathname, useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef } from "react";
 
+// TODO: add a close button on mobile viewport
 export default function Modal({ children }: { children: React.ReactNode }) {
   const card = useRef<HTMLDivElement>(null);
 
