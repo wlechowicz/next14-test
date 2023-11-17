@@ -14,6 +14,8 @@ export default async function HeroMovie() {
 
   const year = release_date.split("-")[0];
 
+  // FIXME: very long titles push the year to the right edge of the viewport
+
   return (
     <Link
       href={`/movie/${id}`}
@@ -26,7 +28,7 @@ export default async function HeroMovie() {
         size="w1280"
       />
       <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[var(--background-color-dark)] to-transparent h-[50%]" />
-      <div className="absolute bottom-6 left-10 [text-shadow:_-3px_4px_2px_var(--tw-shadow-color)] shadow-black text-gray-100">
+      <div className="absolute bottom-6 left-10 [text-shadow:_-2px_1px_2px_var(--tw-shadow-color)] shadow-black text-gray-100">
         <h1 className="text-[5vw] xl:text-[4vw]">{title}</h1>
         <h2 className="text-[3vw] xl:text-[2vw] text-right">{year}</h2>
       </div>

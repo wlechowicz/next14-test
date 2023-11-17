@@ -1,56 +1,57 @@
 "use client";
 
-import { useClickAway } from "@/hooks";
+import { useClickAway, useFocusTrap } from "@/hooks";
 import Link from "@/components/Link";
 import { usePathname, useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef } from "react";
+import { on } from "events";
 
-// TODO: add a close button on mobile viewport
 export default function Modal({ children }: { children: React.ReactNode }) {
   const card = useRef<HTMLDivElement>(null);
 
   const router = useRouter();
 
   const onDismiss = useCallback(() => {
-    // TODO: this should be router.push("/") but that doesn't work
+    // FIXME: this should be router.push("/") but that doesn't work
     // also router needs to be made brand-aware like the custom Link
     router.back();
   }, [router]);
 
-  const onKeyDown = useCallback(
-    (e: KeyboardEvent) => {
-      if (e.key.toLowerCase() === "escape") onDismiss();
-    },
-    [onDismiss]
-  );
-
   useEffect(() => {
-    document.addEventListener("keydown", onKeyDown);
     window.scrollTo(0, 0);
-    return () => document.removeEventListener("keydown", onKeyDown);
-  }, [onKeyDown]);
+    // store focus of the item that opened the modal
+    const modalOpener = document.activeElement as HTMLElement;
 
-  // FIXME: this makes the modal call router.back() when anything in the header is clicked
+    return () => {
+      modalOpener?.focus();
+    };
+  }, []);
+
   useClickAway(card, () => onDismiss());
-
-  // workaround because modal doesn't close after navigating to a non-intercepted page
-  // https://github.com/vercel/next.js/discussions/50284
-  // https://github.com/vercel/next.js/issues/48719
-  // seems this got fixed with https://github.com/vercel/next.js/pull/58368
-  // until PPR is off, with PPR on nothing seems to work the way it should
-  // const pathname = usePathname();
-  // if (!pathname.startsWith("/movie/")) {
-  //   return null;
-  // }
+  useFocusTrap(card, () => onDismiss());
 
   return (
-    <div className="fixed top-[--header-height] left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-start">
+    <div
+      role="dialog"
+      aria-modal
+      aria-labelledby="sr-modal-label"
+      className="fixed top-0 left-0 w-full h-full pt-[var(--header-height)] bg-black bg-opacity-50 flex justify-center items-start z-40"
+    >
       <div
-        className="flex flex-col modal-card rounded p-4 bg-slate-900 bg-opacity-100 overflow-y-auto"
+        className="flex flex-col modal-card rounded p-4 bg-slate-900 bg-opacity-100 overflow-y-auto relative"
         ref={card}
       >
+        <span className="sr-only" id="sr-modal-label">
+          Details and description for the video you selected.
+        </span>
+        <button
+          onClick={onDismiss}
+          className="absolute z-50 top-2 right-4 text-4xl px-4 py-2 text-slate-300 hover:text-slate-700 focus:text-slate-700 [text-shadow:_0px_1px_2px_#000]"
+        >
+          &times;
+          <span className="sr-only">Close</span>
+        </button>
         {children}
-        {/* broken, see https://github.com/vercel/next.js/issues/48719 */}
         Clicking this should take you to /shows/1 and close the modal:{" "}
         <Link href="/shows/1" prefetch={false}>
           Shows/1

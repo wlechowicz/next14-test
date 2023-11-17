@@ -1,7 +1,6 @@
+import { notFound } from "next/navigation";
 import Header from "@/components/Header";
 import { getBrandData, getKnownBrands } from "@/server/brands";
-import { notFound } from "next/navigation";
-
 import { type Metadata } from "next";
 
 type LayoutProps = {

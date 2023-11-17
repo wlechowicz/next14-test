@@ -12,11 +12,11 @@ export default function Recs({
 }) {
   return (
     <ListTitle title="More Like This">
-      <Suspense fallback={<ListSkeleton tiles={6} />}>
+      <Suspense fallback={<ListSkeleton tiles={8} />}>
         <DynamicList
           url={`/${assetType}/${assetId}/similar`}
           name={`similar${assetType}s`}
-          limit={6}
+          limit={8}
         />
       </Suspense>
     </ListTitle>

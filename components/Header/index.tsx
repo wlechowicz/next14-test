@@ -6,7 +6,7 @@ import { type Brand } from "@/server/brands";
 
 export default async function Header({ brand }: { brand: Brand }) {
   return (
-    <header className="flex flex-row items-center justify-between w-full bg-black text-slate-50 h-[--header-height] px-12 sticky top-0 z-50">
+    <header className="flex flex-row items-center justify-between w-full bg-black text-slate-50 h-[--header-height] px-12 sticky top-0 z-30">
       <div className="flex flex-row justify-between items-center">
         {/* FIXME: color from theme doesn't work like this because tailwind doesn't collect this class */}
         <div className={`text-4xl font-bold ${brand.theme.header.logoColor}`}>
